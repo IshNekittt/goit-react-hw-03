@@ -1,4 +1,5 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { nanoid } from "nanoid";
 import s from "./ContactForm.module.css";
 import * as Yup from "yup";
 
@@ -8,13 +9,23 @@ const startValues = {
 };
 
 const ContactSchema = Yup.object().shape({
-  name: Yup.string(),
-  number: Yup.number(),
+  name: Yup.string()
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Required"),
+  number: Yup.string()
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Required"),
 });
 
-export default function ContactForm() {
+export default function ContactForm({ addContact }) {
   const handleSubmit = (values, actions) => {
-    console.log(values);
+    const resObj = {
+      ...values,
+      id: nanoid(),
+    };
+    addContact(resObj);
     actions.resetForm();
   };
   return (
@@ -24,15 +35,23 @@ export default function ContactForm() {
       validationSchema={ContactSchema}
     >
       <Form className={s.form}>
-        <label>
+        <label className={s.label}>
           Name
           <Field name="name" />
+          <ErrorMessage className={s.errorMessage} name="name" component="p" />
         </label>
-        <label>
+        <label className={s.label}>
           Number
-          <Field name="number" />
+          <Field name="number" type="tel" />
+          <ErrorMessage
+            className={s.errorMessage}
+            name="number"
+            component="p"
+          />
         </label>
-        <button type="submit">Add contact</button>
+        <button className={s.submitButton} type="submit">
+          Add contact
+        </button>
       </Form>
     </Formik>
   );
