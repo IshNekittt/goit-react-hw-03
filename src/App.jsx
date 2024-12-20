@@ -15,7 +15,6 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("contactList", JSON.stringify(contacts));
-
     setFilteredContacts(contacts);
   }, [contacts]);
 
@@ -38,12 +37,20 @@ function App() {
     setContacts((prev) => [...prev, newContact]);
   };
 
+  const handleDelete = (id) => {
+    setContacts((prev) =>
+      prev.filter((contact) => {
+        return contact.id !== id;
+      })
+    );
+  };
+
   return (
     <div>
       <h1>Phonebook</h1>
       <ContactForm addContact={handleSubmit} />
       <SearchBox value={searchValue} handler={handleChange} />
-      <ContactList contacts={filteredContacts} />
+      <ContactList contacts={filteredContacts} onDelete={handleDelete} />
     </div>
   );
 }
