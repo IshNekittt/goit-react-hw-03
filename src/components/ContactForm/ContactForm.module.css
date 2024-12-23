@@ -10,12 +10,6 @@
   max-width: 320px;
 }
 
-@media (prefers-color-scheme: light) {
-  .form {
-    border-color: #000;
-  }
-}
-
 .label {
   display: flex;
   flex-direction: column;
@@ -30,9 +24,19 @@
 .submitButton {
   border-radius: 5px;
   padding: 5px 15px;
+  color: #f0f0f0;
 }
 
 .errorMessage {
   margin-top: 5px;
   color: #f16060;
+}
+
+@media (prefers-color-scheme: light) {
+  .form {
+    border-color: #000;
+  }
+  .submitButton {
+    color: #242424;
+  }
 }

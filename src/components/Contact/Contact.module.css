@@ -9,12 +9,6 @@
   max-width: 300px;
 }
 
-@media (prefers-color-scheme: light) {
-  .listItem {
-    border-color: #000;
-  }
-}
-
 .infoItem {
   display: flex;
   flex-direction: row;
@@ -25,4 +19,14 @@
 .deleteBtn {
   padding: 0 10px;
   height: 35px;
+  color: #f0f0f0;
+}
+
+@media (prefers-color-scheme: light) {
+  .listItem {
+    border-color: #000;
+  }
+  .deleteBtn {
+    color: #242424;
+  }
 }
